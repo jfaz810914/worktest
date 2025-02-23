@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS currencies (
+    code VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
