@@ -42,7 +42,7 @@ public class CurrencyService {
         currencyRepository.deleteById(code);
     }
 
-    // 根据币种代码查询币种名称
+    // 根據幣種代碼查詢幣種名稱
     public String getCurrencyNameByCode(String code) {
         Optional<Currency> currency = currencyRepository.findById(code);
         return currency.map(Currency::getName).orElse("未知幣別");

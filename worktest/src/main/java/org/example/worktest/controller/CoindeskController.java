@@ -22,10 +22,16 @@ public class CoindeskController {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String COINDESK_API_URL = "https://kengp3.github.io/blog/coindesk.json";
 
+    @GetMapping("/newcoindesk")
+    public Map<String, Object> getNewCoindeskData() {
+        Map<String, Object> response = getCoindeskData();
+        return transformData(response);
+    }
+
     @GetMapping("/coindesk")
     public Map<String, Object> getCoindeskData() {
         Map<String, Object> response = restTemplate.getForObject(COINDESK_API_URL, HashMap.class);
-        return transformData(response);
+        return response;
     }
 
     public Map<String, Object> transformData(Map<String, Object> originalData) {
@@ -44,10 +50,9 @@ public class CoindeskController {
             currencyDetails.put("currency", code);
             currencyDetails.put("rate", currencyInfo.get("rate"));
 
-            // 从数据库中获取中文名称
+            // 從數據庫中獲取中文字
             String name = currencyService.getCurrencyNameByCode(code);
             currencyDetails.put("name", name != null ? name : "未知幣別");
-
             currencyData.put(key, currencyDetails);
         }
 

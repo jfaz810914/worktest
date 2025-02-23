@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, String> {
-
+    Optional<Currency> findByCode(String code); // 透過 code 查詢貨幣
 }
+
