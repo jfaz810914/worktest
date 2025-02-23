@@ -1,11 +1,14 @@
 package org.example.worktest;
 
 import org.example.worktest.controller.CoindeskController;
+import org.example.worktest.entity.Currency;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,4 +69,18 @@ class WorktestApplicationTests {
         assertEquals("USD", usd.get("currency"));
         assertNotNull(usd.get("rate"));
     }
+
+    // 4. 測試幣別對應表 CRUD API
+    @Test
+    @Transactional
+    @Rollback(false)  // 禁用回滾，資料變更會保留
+    void testCreateCurrency() {
+        Currency currency = new Currency("JPY", "日圓");
+        Currency createdCurrency = restTemplate.postForObject("/api/currencies", currency, Currency.class);
+
+        assertNotNull(createdCurrency);
+        assertEquals("JPY", createdCurrency.getCode());
+        assertEquals("日圓", createdCurrency.getName());
+    }
+
 }
