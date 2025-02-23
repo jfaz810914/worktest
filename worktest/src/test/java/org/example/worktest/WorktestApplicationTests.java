@@ -27,7 +27,7 @@ class WorktestApplicationTests {
         ResponseEntity<Map> response = restTemplate.getForEntity("/api/coindesk", Map.class);
         assertNotNull(response.getBody());
         assertTrue(response.getBody().containsKey("updatedTime"));
-        assertTrue(response.getBody().containsKey("currencies"));
+        assertTrue(response.getBody().containsKey("Currency"));
     }
 
     @Test
@@ -59,7 +59,7 @@ class WorktestApplicationTests {
         assertNotNull(transformed.get("updatedTime"));
 
         // 進行類型轉換來確保取值正確
-        Map<String, Object> currencies = (Map<String, Object>) transformed.get("currencies");
+        Map<String, Object> currencies = (Map<String, Object>) transformed.get("Currency");
         assertNotNull(currencies);
         Map<String, Object> usd = (Map<String, Object>) currencies.get("USD");
         assertNotNull(usd);

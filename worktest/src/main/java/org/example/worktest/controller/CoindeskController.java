@@ -53,7 +53,7 @@ public class CoindeskController {
             currencyData.put(key, currencyDetails);
         }
 
-        transformed.put("currencies", currencyData);
+        transformed.put("Currency", currencyData);
         return transformed;
     }
 }
